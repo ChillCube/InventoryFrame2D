@@ -65,6 +65,23 @@ func _process(_delta: float) -> void:
 			push_warning("[Slot %d] Failsafe triggered: ejecting mismatched item %s" % [slot, child.item.name]);
 			_eject_item(child);
 
+func try_receive_single(incoming_item: Item) -> bool:
+	if inventory == null:
+		return false
+	if is_instance_valid(item):
+		if item.item != incoming_item:
+			return false
+		item.count += 1
+		inventory.set_slot(slot, item.item, item.count)
+		return true
+	# Empty frame: ensure the inventory slot exists, then spawn with count=1
+	while inventory.items.size() <= slot:
+		inventory.items.append(null)
+		inventory.counts.append(0)
+	inventory.set_slot(slot, incoming_item, 1)
+	_spawn_item(incoming_item)
+	return true
+
 func _on_picked_up(_position : Vector2):
 	item_being_moved = true;
 	print("[Slot %d] Item picked up" % slot);
