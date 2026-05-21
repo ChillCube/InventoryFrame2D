@@ -91,6 +91,7 @@ func _on_place(_position : Vector2):
 	if item == null:
 		return;
 	if item.get_parent() == placement:
+		inventory.set_slot(slot, item.item, item.count);
 		print("[Slot %d] Item returned to slot: %s x%d" % [slot, item.item.name, item.count]);
 	elif item.get_parent() is PlacementArea2D:
 		inventory.set_slot(slot, null);
