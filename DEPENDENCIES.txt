@@ -1,2 +1,3 @@
 https://github.com/ChillCube/SpritePlacement
 https://github.com/ChillCube/PlaceAbleItem2D
+https://github.com/ChillCube/InventoryGodot
